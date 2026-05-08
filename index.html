@@ -1,232 +1,413 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Digital Dashboard</title>
-    <link href="https://cloudflare.com" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="1.png">
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --accent-color: #38bdf8;
-            --text-color: #f1f5f9;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayoub · Digital Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            background: radial-gradient(circle at top right, #1e293b, #0f172a);
-        }
-
-        header {
-            margin: 60px 0 40px;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(to right, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1000px;
-        }
-
-        /* Grille des sites */
-        #sites-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .site-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .site-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--accent-color);
-            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
-        }
-
-        .site-card i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: var(--accent-color);
-        }
-
-        .site-card span {
-            font-weight: 500;
-            font-size: 1.1rem;
-        }
-
-        /* Bouton Ajouter */
-        .add-btn {
-            background: linear-gradient(135deg, #38bdf8, #818cf8);
-            border: none;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 40px;
-            transition: opacity 0.2s;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
-        }
-
-        .add-btn:hover { opacity: 0.9; }
-
-        /* Animation d'entrée */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .site-card { animation: fadeIn 0.5s ease backwards; }
-        /* Style du bouton de contact flottant */
-    .contact-btn {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        background: #e1306c; /* Couleur Instagram */
-        color: white;
-        padding: 12px 20px;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        box-shadow: 0 5px 20px rgba(225, 48, 108, 0.4);
-        transition: all 0.3s ease;
-        z-index: 1000;
+    :root {
+      --bg: #080c10;
+      --surface: #0e1520;
+      --border: rgba(255,255,255,0.07);
+      --accent: #00d4ff;
+      --accent2: #ff6b35;
+      --text: #f0f4f8;
+      --muted: #5a7080;
+      --card-hover: rgba(0,212,255,0.06);
     }
 
-    .contact-btn:hover {
-        transform: scale(1.1);
-        background: #bc2a8d;
-        box-shadow: 0 8px 25px rgba(225, 48, 108, 0.6);
-    }
- 
-    .contact-btn i {
-       font-size: 1.4rem;
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-/* Adaptation pour mobile */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,212,255,0.12), transparent 70%);
+      top: -200px; right: -100px;
+    }
+    .orb-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(255,107,53,0.08), transparent 70%);
+      bottom: 0; left: -150px;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    header {
+      padding: 80px 0 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent);
+      width: fit-content;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      animation: fadeUp 0.6s ease both;
+    }
+    .badge .dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    h1 .name {
+      background: linear-gradient(100deg, var(--accent), #7dd3fc 50%, var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 440px;
+      line-height: 1.65;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 60px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 20px 24px;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), background 0.3s, border-color 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--card-hover);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0,212,255,0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,255,0.1);
+    }
+    .card:hover::after { opacity: 1; }
+
+    .card-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--accent);
+      position: relative;
+      z-index: 1;
+      transition: background 0.3s;
+    }
+    .card:hover .card-icon { background: rgba(0,212,255,0.12); }
+
+    .card-body { position: relative; z-index: 1; }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .card-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .card-arrow {
+      position: absolute;
+      top: 20px; right: 18px;
+      font-size: 0.7rem;
+      color: var(--muted);
+      opacity: 0;
+      transform: translate(-4px, 4px);
+      transition: opacity 0.25s, transform 0.25s;
+      z-index: 1;
+    }
+    .card:hover .card-arrow { opacity: 1; transform: translate(0,0); }
+
+    .card.featured {
+      grid-column: span 2;
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+      padding: 28px;
+    }
+    .card.featured .card-icon {
+      width: 56px; height: 56px;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 500px) {
+      .card.featured { grid-column: span 1; flex-direction: column; }
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-copy { font-size: 0.82rem; color: var(--muted); }
+    .footer-copy a { color: var(--accent); text-decoration: none; font-weight: 500; }
+
+    .footer-links { display: flex; gap: 12px; }
+
+    .footer-link {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .footer-link:hover {
+      color: var(--accent);
+      border-color: rgba(0,212,255,0.3);
+      background: rgba(0,212,255,0.06);
+    }
+
+    .float-btn {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      background: linear-gradient(135deg, #e1306c, #bc2a8d);
+      color: #fff;
+      padding: 13px 22px;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 30px rgba(225,48,108,0.35);
+      transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), box-shadow 0.25s;
+      z-index: 999;
+    }
+    .float-btn:hover {
+      transform: scale(1.07) translateY(-2px);
+      box-shadow: 0 14px 40px rgba(225,48,108,0.5);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .card:nth-child(1) { animation-delay: 0.25s; }
+    .card:nth-child(2) { animation-delay: 0.32s; }
+    .card:nth-child(3) { animation-delay: 0.39s; }
+    .card:nth-child(4) { animation-delay: 0.46s; }
+    .card:nth-child(5) { animation-delay: 0.53s; }
+
     @media (max-width: 600px) {
-        .contact-btn {
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 15px;
-            font-size: 0.8rem;
-        }
+      header { padding: 56px 0 40px; }
+      .float-btn { bottom: 20px; right: 20px; padding: 11px 16px; font-size: 0.8rem; }
     }
-
-    </style>
+  </style>
 </head>
 <body>
 
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="page">
+
     <header>
-        <h1>My Digital Dashboard</h1>
-        <p style="color: #94a3b8;">You can find all my sites here.</p>
+      <span class="badge"><span class="dot"></span>Available &amp; Building</span>
+      <h1>Hey, I'm <span class="name">Ayoub</span></h1>
+      <p class="subtitle">A developer building web experiences. Here's a collection of everything I've been working on.</p>
     </header>
 
-    <!--<button class="add-btn" onclick="addNewSite()">
-        <i class="fas fa-plus"></i> Ajouter un site
-    </button>-->
+    <p class="section-label">Projects</p>
+    <div class="grid">
 
-    <div class="container">
-        <div id="sites-grid">
-            <!-- Sites par défaut -->
-            <a href="https://github.com" target="_blank" class="site-card">
-                <i class="fab fa-github"></i>
-                <span>GitHub</span>
-            </a>
-            <a href="https://ayouboby.github.io/BMW_HUB/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnh_bJuhsN6qa7wt2JBbv7lFeUd0JlZpXOSMpbMLUqrHvgwKJK2I0OyZQK8AM_aem_hh9JfsCWTkdpC8UjXaTs4w" target="_blank" class="site-card" style="animation-delay: 0.1s">
-                <i class="fab fa-youtube"></i>
-                <span>BMW Gallery</span>
-            </a>
-            <a href="https://ayouboby.github.io/gta_sa/" target="_blank" class="site-card" style="animation-delay: 0.2s">
-                <i class="fas fa-robot"></i>
-                <span>GTA San Andreas Download</span>
-            </a>
-            <a href="https://ayouboby.github.io/first/" target="_blank" class="site-card" style="animation-delay: 0.3s">
-                <i class="fas fa-robot"></i>
-                <span>My First Site</span>
-            </a>
-            <a href="https://www.appcreator24.com/app3955779-d56m2i" target="_blank" class="site-card" style="animation-delay: 0.4s">
-                <i class="fas fa-robot"></i>
-                <span>Chaty App</span>
-            </a>
+      <a href="https://ayouboby.github.io/BMW_HUB/" target="_blank" class="card featured">
+        <div class="card-icon"><i class="fas fa-car"></i></div>
+        <div class="card-body">
+          <div class="card-title">BMW Gallery</div>
+          <div class="card-desc">A curated visual gallery dedicated to BMW models and culture.</div>
         </div>
+        <i class="fas fa-arrow-up-right card-arrow"></i>
+      </a>
+
+      <a href="https://ayouboby.github.io/gta_sa/" target="_blank" class="card">
+        <div class="card-icon"><i class="fas fa-gamepad"></i></div>
+        <div class="card-body">
+          <div class="card-title">GTA San Andreas</div>
+          <div class="card-desc">Download hub for GTA SA.</div>
+        </div>
+        <i class="fas fa-arrow-up-right card-arrow"></i>
+      </a>
+
+      <a href="https://www.appcreator24.com/app3955779-d56m2i" target="_blank" class="card">
+        <div class="card-icon"><i class="fas fa-comments"></i></div>
+        <div class="card-body">
+          <div class="card-title">Chaty App</div>
+          <div class="card-desc">A custom chat application.</div>
+        </div>
+        <i class="fas fa-arrow-up-right card-arrow"></i>
+      </a>
+
+      <a href="https://ayouboby.github.io/first/" target="_blank" class="card">
+        <div class="card-icon"><i class="fas fa-seedling"></i></div>
+        <div class="card-body">
+          <div class="card-title">First Site</div>
+          <div class="card-desc">Where it all started.</div>
+        </div>
+        <i class="fas fa-arrow-up-right card-arrow"></i>
+      </a>
+
     </div>
-    <!-- Section Contact & Copyright -->
-    <footer style="margin-top: 50px; padding: 20px; text-align: center;">
-        <h5>That's it for now!</h5>
-        <p style="color: #64748b; font-size: 0.9rem;">
-            &copy; 2026 <a href="https://www.instagram.com/ayoub_0by/" target="_blank" style="color: var(--accent-color); text-decoration: none; font-weight: bold;">ayoub_0by</a>
-        </p>
+
+    <p class="section-label">Elsewhere</p>
+    <div class="grid">
+
+      <a href="https://github.com/ayouboby" target="_blank" class="card">
+        <div class="card-icon"><i class="fab fa-github"></i></div>
+        <div class="card-body">
+          <div class="card-title">GitHub</div>
+          <div class="card-desc">Source code &amp; repos.</div>
+        </div>
+        <i class="fas fa-arrow-up-right card-arrow"></i>
+      </a>
+
+      <a href="https://www.instagram.com/ayoub_0by/" target="_blank" class="card">
+        <div class="card-icon" style="color: #e1306c;"><i class="fab fa-instagram"></i></div>
+        <div class="card-body">
+          <div class="card-title">Instagram</div>
+          <div class="card-desc">Follow along @ayoub_0by.</div>
+        </div>
+        <i class="fas fa-arrow-up-right card-arrow"></i>
+      </a>
+
+    </div>
+
+    <footer>
+      <p class="footer-copy">© 2026 <a href="https://www.instagram.com/ayoub_0by/" target="_blank">Ayoub</a> · All rights reserved.</p>
+      <div class="footer-links">
+        <a href="https://github.com/ayouboby" target="_blank" class="footer-link"><i class="fab fa-github"></i></a>
+        <a href="https://www.instagram.com/ayoub_0by/" target="_blank" class="footer-link"><i class="fab fa-instagram"></i></a>
+      </div>
     </footer>
 
-<!-- Bouton de contact flottant (Instagram) -->
-<a href="https://www.instagram.com/ayoub_0by/" target="_blank" class="contact-btn">
+  </div>
+
+  <a href="https://www.instagram.com/ayoub_0by/" target="_blank" class="float-btn">
     <i class="fab fa-instagram"></i> Contact Me
-</a>
-
-
-    <script>
-        function addNewSite() {
-            const name = prompt("Nom du site :");
-            let url = prompt("Lien URL (ex: google.com) :");
-
-            if (name && url) {
-                // S'assurer que l'URL commence par http
-                if (!url.startsWith('http')) {
-                    url = 'https://' + url;
-                }
-
-                const grid = document.getElementById('sites-grid');
-                
-                // Création de l'élément
-                const newCard = document.createElement('a');
-                newCard.href = url;
-                newCard.target = "_blank";
-                newCard.className = "site-card";
-                newCard.innerHTML = `
-                    <i class="fas fa-link"></i>
-                    <span>${name}</span>
-                `;
-                
-                grid.appendChild(newCard);
-            }
-        }
-    </script>
+  </a>
 
 </body>
 </html>
